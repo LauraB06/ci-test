@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "echo 'Test not implemented' && exit 0",
-    "serve:e2e": "HOST=laura.hcp.com && npm run serve"
+    "serve:e2e": "HOST=e2e.hcp.com && npm run serve"
   },
   "dependencies": {
     "core-js": "^3.6.5",
