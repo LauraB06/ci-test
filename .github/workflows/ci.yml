@@ -91,5 +91,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: HOST=e2e.hcp.com && npm run serve
+          start: npm run serve:e2e
           wait-on: "http://e2e.hcp.com:8080"
