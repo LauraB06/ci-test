@@ -86,8 +86,10 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Setting custom HOST name
+        run: echo "127.0.0.1 e2e.hcp.com" | sudo tee -a /etc/hosts && HOST="e2e.hcp.com"
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: echo "127.0.0.1 e2e.hcp.com" | sudo tee -a /etc/hosts && HOST=e2e.hcp.com && npm run serve
+          start: npm run serve
           wait-on: "http://e2e.hcp.com:8080"
