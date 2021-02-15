@@ -1,1 +1,3 @@
-{}
+{
+  "baseUrl":"http://e2e.hcp.com:8080"
+}
