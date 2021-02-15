@@ -10,7 +10,8 @@ jobs:
     name: install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -24,15 +25,6 @@ jobs:
             ${{ runner.os }}-
       - name: Install Dependencies
         run: npm install
-  lint:
-    name: lint
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run lint
-        run: npm run lint
   build:
     name: build
     needs: install
@@ -40,11 +32,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: Run build
         run: npm run build
+  lint:
+    name: lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run lint
+        run: npm run lint
   test:
     name: test
-    needs: install
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -52,7 +64,7 @@ jobs:
       - name: Run test
         run: npm run test
   cypress-run:
-    needs: install
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
