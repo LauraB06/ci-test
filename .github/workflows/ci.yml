@@ -94,3 +94,8 @@ jobs:
           start: npm run serve
           browser: chrome
           wait-on: "http://e2e.hcp.com:8080"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          path: /home/runner/work/ci-test/ci-test/cypress/videos/
