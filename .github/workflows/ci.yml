@@ -92,4 +92,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           start: npm run serve
+          browser: chrome
           wait-on: "http://e2e.hcp.com:8080"
