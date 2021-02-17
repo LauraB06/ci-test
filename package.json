@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "lint-staged",
     "test": "echo 'Test not implemented' && exit 0"
   },
   "dependencies": {
@@ -20,6 +20,8 @@
     "cypress": "^6.4.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "husky": "^5.0.9",
+    "lint-staged": "^10.5.4",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -40,5 +42,13 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
 }
